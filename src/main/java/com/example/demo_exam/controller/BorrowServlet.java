@@ -45,7 +45,7 @@ public class BorrowServlet extends HttpServlet {
         List<Student> students = studentService.selectAllStudent();
         if (book.getQuantity() <= 0) {
             req.setAttribute("errorMessage", "Hết sách rồi ấy ơi, mượn cuốn khác đi.");
-            req.getRequestDispatcher("views/error.jsp").forward(req, resp);
+            req.getRequestDispatcher("/views/error.jsp").forward(req, resp);
             return;
         }
         req.setAttribute("students", students);
@@ -60,7 +60,7 @@ public class BorrowServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         String url = req.getPathInfo();
         switch (url) {
             case "/create":
@@ -82,20 +82,20 @@ public class BorrowServlet extends HttpServlet {
         borrow.setCode(code);
         Book book = bookService.findBookById(bookId);
         borrow.setBookId(bookId);
-
         borrow.setStudentId(studentId);
-
         borrow.setStatus(true);
         borrow.setBorrowDay(borrowDate);
         borrow.setReturnDay(returnDate);
         borrowService.insertBorrow(borrow);
-
         bookService.updateBookQuantity(bookId, book.getQuantity() - 1);
         resp.sendRedirect("/books/list");
     }
 
     private void deleteBorrow(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
+        int bookId = Integer.parseInt(req.getParameter("bookId"));
+        Book book = bookService.findBookById(bookId);
+        bookService.updateBookQuantity(bookId, book.getQuantity() + 1);
         borrowService.deleteBorrow(id);
         List<Borrow> borrows = borrowService.selectAllBorrow();
         req.setAttribute("borrows", borrows);

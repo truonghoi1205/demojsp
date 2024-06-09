@@ -41,8 +41,10 @@
                     <td>${borrow.student.classroom}</td>
                     <td>${borrow.borrowDay}</td>
                     <td>${borrow.returnDay}</td>
-                    <form method="post" action="/borrows/delete?id=${borrow.id}">
+                    <form action="/borrows/delete" method="post">
                         <td>
+                            <input type="hidden" name="id" value="${borrow.id}">
+                            <input type="hidden" name="bookId" value="${borrow.book.bookId}">
                             <button type="submit" class="btn btn-primary">Trả sách</button>
                         </td>
                     </form>

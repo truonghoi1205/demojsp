@@ -11,6 +11,5 @@ public interface IBorrowRepo {
     List<Borrow> selectAllBorrow() throws SQLException;
 
     void deleteBorrow(int id) throws SQLException;
-    void updateBorrow(int id, boolean status) throws SQLException;
-     Borrow findBorrowById(int id) throws SQLException;
+
 }

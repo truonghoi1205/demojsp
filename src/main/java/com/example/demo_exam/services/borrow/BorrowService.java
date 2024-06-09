@@ -42,21 +42,7 @@ public class BorrowService implements IBorrowService {
         }
     }
 
-    @Override
-    public void updateBorrow(int id, boolean status) {
-        try {
-            borrowRepo.updateBorrow(id,status);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    @Override
-    public Borrow findBorrowById(int id) {
-        try {
-           return borrowRepo.findBorrowById(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
+
 }

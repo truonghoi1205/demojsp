@@ -11,6 +11,6 @@ public interface IBorrowService {
    List<Borrow> selectAllBorrow();
 
    void deleteBorrow(int id) ;
-   void updateBorrow(int id, boolean status) ;
-   Borrow findBorrowById(int id) ;
+
+
 }

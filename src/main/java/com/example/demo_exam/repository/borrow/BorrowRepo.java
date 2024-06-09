@@ -64,42 +64,14 @@ public class BorrowRepo implements IBorrowRepo {
     @Override
     public void deleteBorrow(int id) throws SQLException {
         Connection connection = new ConnectDB().getConnection();
-        String sql = "delete from borrows where borrowId = ?";
+        String sql = "delete from borrows where borrowId = ?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
+        ps.setInt(2,id);
         ps.executeUpdate();
         connection.close();
     }
 
-    @Override
-    public void updateBorrow(int id, boolean status) throws SQLException {
-        Connection connection = new ConnectDB().getConnection();
-        String sql = "update borrows set status = ? where id = ?";
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setBoolean(1, status);
-        ps.setInt(2, id);
-        ps.executeUpdate();
-        connection.close();
-    }
 
-    @Override
-    public Borrow findBorrowById(int id) throws SQLException {
-        Connection connection = new ConnectDB().getConnection();
-        String query = "select * from borrow where id = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            Borrow borrow = new Borrow();
-            borrow.setId(rs.getInt("id"));
-            borrow.setBookId(rs.getInt("bookId"));
-            borrow.setStudentId(rs.getInt("studentId"));
-            borrow.setStatus(rs.getBoolean("status"));
-            borrow.setBorrowDay(rs.getDate("borrowDay"));
-            borrow.setReturnDay(rs.getDate("returnDay"));
-            return borrow;
-        }
-        return null;
-    }
 
 }
