@@ -93,6 +93,7 @@ public class BorrowServlet extends HttpServlet {
 
     private void deleteBorrow(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         int id = Integer.parseInt(req.getParameter("id"));
+        //chỗ ni đang lỗi bookId xóa vẫn được nhưng sl sách chưa tăng lên lại
         int bookId = Integer.parseInt(req.getParameter("bookId"));
         Book book = bookService.findBookById(bookId);
         bookService.updateBookQuantity(bookId, book.getQuantity() + 1);

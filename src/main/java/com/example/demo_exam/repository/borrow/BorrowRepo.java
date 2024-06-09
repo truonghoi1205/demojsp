@@ -67,7 +67,6 @@ public class BorrowRepo implements IBorrowRepo {
         String sql = "delete from borrows where borrowId = ?;";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
-        ps.setInt(2,id);
         ps.executeUpdate();
         connection.close();
     }
