@@ -16,7 +16,7 @@ public class BorrowRepo implements IBorrowRepo {
     public List<Borrow> selectAllBorrow() throws SQLException {
         List<Borrow> borrows = new ArrayList<>();
         Connection connection = new ConnectDB().getConnection();
-        String sql = "select br.borrowId, br.borrowCode, b.bookName, b.author , s.name as studentName, s.class as classroom, br.borrowDate, br.returnDate " +
+        String sql = "select br.borrowId, br.borrowCode, b.bookId , b.bookName, b.author , s.name as studentName, s.class as classroom, br.borrowDate, br.returnDate " +
                 "from books b " +
                 "join borrows br " +
                 "on b.bookId = br.bookId " +
@@ -33,6 +33,7 @@ public class BorrowRepo implements IBorrowRepo {
             borrow.setBorrowDay(rs.getDate("borrowDate"));
             borrow.setReturnDay(rs.getDate("returnDate"));
             Book book = new Book();
+            book.setBookId(rs.getInt("bookId"));
             book.setName(rs.getString("bookName"));
             book.setAuthor(rs.getString("author"));
             Student student = new Student();
